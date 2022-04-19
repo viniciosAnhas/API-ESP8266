@@ -1,5 +1,7 @@
 # API-ESP8266
 
+### Nesse arquivo teremos o passo a passo de como montar o circuito, realizar as configurações de conexão com a rede, envio do código para placa e realizar um teste com a API.
+
 ## Sumário
 ___
 * [Sobre](#Sobre)
@@ -19,7 +21,10 @@ ___
 + Jumpers;
 
 # Esquemático
+
+<div align="center">
 <img src="./img/esquematico.PNG">
+</div>
 
 # Softwares
 + Visual Studio Code;
@@ -36,7 +41,11 @@ ___
 
 ## Barra-de-ferramentas-PlatformIO
 
+<div align="center">
+
 <img src="./img/platformio-toolbar.png" >
+
+</div>
 
 1-Home
 
@@ -63,12 +72,13 @@ OBS: Mesmo endereço configurado no codigo
 
 <img src="./img/postman.png" >
 
-<footer align="center">
+###
+___
 
+ <div align="center">
 
-<p>Estou disposto para qualquer duvida do projeto</p>
+<p>Estou disponível para tirar qualquer dúvida do projeto 👍</p>
 
-<a href="https://www.linkedin.com/in/vinicios-moraes-anhas-199478160/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
-
-
-</footer>
+   <a href="https://www.linkedin.com/in/vinicios-moraes-anhas-199478160/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+   
+</div>
