@@ -1,9 +1,9 @@
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "Beco Diagonal";
+const char* password = "c@t!7rkvl9";
 
-IPAddress ip(x, x, x, x);
-IPAddress subnet(x, x, x, x);
-IPAddress gateway(x, x, x, x);
+IPAddress ip(192, 168, 15, 200);
+IPAddress subnet(255, 255, 255, 0);
+IPAddress gateway(192, 168, 15, 1);
 
 byte led = 2;
 
