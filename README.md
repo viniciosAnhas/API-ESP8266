@@ -32,7 +32,7 @@ ___
 
 # Como utilizar
 
-+ Realize o clone do projeto em sua máquina;
++ Baixe o projeto em sua máquina;
 + Abra o projeto com o vscode utilizando a extensão PlatformIO;
 + Abra a pasta src, nessa pasta terá três arquivos, abra o arquivo Config.h;
 + Coloque o ssid e a senha da sua rede Wi-Fi, e em seguida preencha as configurações de rede para que o ESP possua um endereço estático;
