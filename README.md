@@ -66,9 +66,9 @@ OBS: Mesmo endereço configurado no codigo
 <footer align="center">
 
 
-<p>Estou disposto para qualquer duvida do projeto</p>
+<p align="center">Estou disposto para qualquer duvida do projeto</p>
 
-<a href="https://www.linkedin.com/in/vinicios-moraes-anhas-199478160/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+<a href="https://www.linkedin.com/in/vinicios-moraes-anhas-199478160/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" align="center"></a> 
 
 
 </footer>
