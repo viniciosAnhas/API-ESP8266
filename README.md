@@ -19,7 +19,7 @@ ___
 + Jumpers;
 
 # Esquemático
-<img src="./img/esquematico.png">
+<img src="./img/esquematico.PNG">
 
 # Softwares
 + Visual Studio Code;
