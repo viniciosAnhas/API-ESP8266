@@ -11,6 +11,7 @@
 * [Como utilizar](#Como-utilizar)
     * [Barra de ferramentas PlatformIO](#Barra-de-ferramentas-PlatformIO)
 * [Postman](#Postman)
+* [Utilizando em um cenario real](#Utilizando-em-um-cenario-rea)
 ___
 # Sobre
 <p> API para ESP8266, com objetivo de realizar o monitoramento de temperatura e umidade utilizando o sensor DHT11.</p>
@@ -66,11 +67,18 @@ ___
 
 <p>Após realizar os passos anteriores, iremos realizar um teste em nossa API, para verificar se o mesmo esta funcionando, abra o seu Postman e realize um teste, coloque o seguite endereço: ip/sensor
 
-OBS: Mesmo endereço configurado no codigo
+OBS: Mesmo endereço configurado no codigo.
 
 </p>
 
 <img src="./img/postman.png" >
+
+###
+___
+
+# Utilizando em um cenario real
+
+<p>Você pode usar o projeto <a href="https://github.com/viniciosAnhas/Front-ESP8266" target="_blank"> Front-ESP8266</a> como exemplo para apresentação dos dados em tempo real.</p>
 
 ###
 ___
