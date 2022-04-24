@@ -101,6 +101,20 @@ bool connection(){
 
   WiFi.config(ip, subnet, gateway);
 
+  Serial.println("Conectando no servidor SQL");
+
+  if (conn.connect(server_addr, 3306, user, pass)){
+
+    Serial.println("Conexao SQL OK!!!");
+
+  }
+
+  else{
+
+    Serial.println("Falha na conexao SQL");
+
+  }
+
   digitalWrite(led, LOW);
   return true;
 

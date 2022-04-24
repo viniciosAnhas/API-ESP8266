@@ -5,6 +5,8 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <DHT_U.h>
+#include <MySQL_Connection.h>
+#include <MySQL_Cursor.h>
 #include <Config.h>
 #include <Declaration.h>
 #include <Functions.h>
@@ -23,6 +25,8 @@ void setup(){
 
   statusConnection();
 
+
+
   delay(1000);
 
 }
@@ -30,5 +34,21 @@ void setup(){
 void loop(){
 
   server.handleClient();
+
+  if((millis() - timeInsertSQL) >= 300000){
+
+    timeInsertSQL = millis();
+
+    MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+
+    dtostrf(getHumidity(), 1, 1, hum);
+    dtostrf(getTemperature(), 1, 1, temp);
+
+    sprintf(query, INSERT_SQL, hum, temp);
+
+    cur_mem->execute(query);
+    delete cur_mem;
+
+  }
 
 }

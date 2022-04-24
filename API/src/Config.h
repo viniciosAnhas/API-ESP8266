@@ -3,7 +3,13 @@ const char* password = "";
 
 IPAddress ip(x, x, x, x);
 IPAddress subnet(x, x, x, x);
-IPAddress gateway(x, x, x,x1);
+IPAddress gateway(x, x, x, x);
+
+IPAddress server_addr(x, x, x, x); 
+char user[] = "";              
+char pass[] = "";
+char INSERT_SQL[] = "INSERT INTO dbesp8266.dht11 (humi, temp, day_register, hour_register) VALUES (%s, %s, CURDATE(), CURTIME())";
+char query[255];
 
 byte led = 2;
 
@@ -16,3 +22,11 @@ DHT dht(DHTPIN, DHTTYPE);
 String json;
 
 ESP8266WebServer server(80);
+
+WiFiClient client;
+
+MySQL_Connection conn((Client *)&client);
+char temp[100];
+char hum[100];
+
+unsigned long timeInsertSQL = 0;
