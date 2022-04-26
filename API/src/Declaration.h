@@ -1,4 +1,5 @@
 bool connection();
+bool connectSQL();
 void statusConnection();
 void getSensor();
 void restServerRouting();

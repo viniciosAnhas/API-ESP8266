@@ -48,13 +48,8 @@ void handleNotFound() {
 
 void statusConnection(){
 
-  bool status =  connection();
-
-  if(status){
+  if(connection()){
       
-    Serial.println("");
-    Serial.print("Conectado a rede sem fio, ");
-    Serial.println(ssid); 
     dht.begin();
     server.enableCORS(true); 
     restServerRouting();
@@ -76,23 +71,19 @@ void statusConnection(){
 
 bool connection(){
 
-  Serial.print("Conectando a ");
-  Serial.print(ssid);
+  Serial.printf("Conectando a %s", ssid);
 
   int attempt = 1;
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED){
 
-    Serial.println("");
-    Serial.print("tentativa: ");
-    Serial.print(attempt);
+    Serial.printf("\n tentativa: %d", attempt);
     attempt++;
     delay(1000);
 
     if(attempt >= 11){
 
-      Serial.println("");
       return false;
 
     }
@@ -101,11 +92,18 @@ bool connection(){
 
   WiFi.config(ip, subnet, gateway);
 
+  Serial.printf("\nESP8266 conectado na rede %s", ssid);
+
+  delay(1500);
+
+  Serial.println("");
   Serial.println("Conectando no servidor SQL");
 
-  if (conn.connect(server_addr, 3306, user, pass)){
+  if(connectSQL()){
 
     Serial.println("Conexao SQL OK!!!");
+    digitalWrite(led, LOW);
+    return true;
 
   }
 
@@ -113,9 +111,30 @@ bool connection(){
 
     Serial.println("Falha na conexao SQL");
 
+    return connectSQL();
+
   }
 
-  digitalWrite(led, LOW);
+}
+
+bool connectSQL(){
+
+  int attemptSQL = 1;
+
+  while(!conn.connect(server_addr, port, user, pass)){
+    
+    attemptSQL++;
+    delay(1500);
+
+    if (attemptSQL >= 11){
+
+       return false;
+
+    }
+
+
+  }
+
   return true;
 
 }

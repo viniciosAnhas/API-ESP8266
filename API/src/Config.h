@@ -17,6 +17,8 @@ byte led = 2;
 
 #define DHTTYPE DHT11
 
+#define port 3306
+
 DHT dht(DHTPIN, DHTTYPE);
 
 String json;
