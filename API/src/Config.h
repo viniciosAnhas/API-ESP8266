@@ -1,11 +1,11 @@
 const char* ssid = "";
 const char* password = "";
 
-IPAddress ip(x, x, x, x);
-IPAddress subnet(x, x, x, x);
-IPAddress gateway(x, x, x, x);
+IPAddress ip(, , , );
+IPAddress subnet(, , , );
+IPAddress gateway(, , , );
 
-IPAddress server_addr(x, x, x, x); 
+IPAddress server_addr(, , , ); 
 char user[] = "";              
 char pass[] = "";
 char INSERT_SQL[] = "INSERT INTO dbesp8266.dht11 (humi, temp, day_register, hour_register) VALUES (%s, %s, CURDATE(), CURTIME())";
