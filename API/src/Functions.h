@@ -24,14 +24,19 @@ void getSensor() {
 }
 
 void restServerRouting() {
+
     server.on("/", HTTP_GET, []() {
+      
         server.send(200, F("text/html"),
             F("<h1>It's ESP8266</h1>"));
     });
+
     server.on(F("/sensor"), HTTP_GET, getSensor);
+
 }
  
 void handleNotFound() {
+
   String message = "File Not Found\n\n";
   message += "URI: ";
   message += server.uri();
@@ -40,15 +45,20 @@ void handleNotFound() {
   message += "\nArguments: ";
   message += server.args();
   message += "\n";
+
   for (uint8_t i = 0; i < server.args(); i++) {
+
     message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
+
   }
+
   server.send(404, "text/plain", message);
+
 }
 
 void statusConnection(){
 
-  if(connection()){
+  if(connectionWifi()){
       
     dht.begin();
     server.enableCORS(true); 
@@ -61,24 +71,48 @@ void statusConnection(){
 
   else{
 
-    Serial.println("Algo esta errado!!!");
-    delay(1000);
-    return setup();
+    Serial.print("\n Falha ao se conectar a rede \n");
+    delay(3000);
+    return statusConnection();
 
   }
 
 }
 
-bool connection(){
+void insertData(){
 
-  Serial.printf("Conectando a %s", ssid);
+    if (conn.connected()){
+
+      MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+
+      dtostrf(getHumidity(), 1, 1, hum);
+      dtostrf(getTemperature(), 1, 1, temp);
+
+      sprintf(query, INSERT_SQL, hum, temp);
+
+      cur_mem->execute(query);
+      delete cur_mem;
+
+    }
+
+    else{
+
+      ESP.restart();
+
+    }
+
+}
+
+bool connectionWifi(){
+
+  Serial.printf("\nConectando a %s", ssid);
 
   int attempt = 1;
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED){
 
-    Serial.printf("\n tentativa: %d", attempt);
+    Serial.printf("\ntentativa: %d ª", attempt);
     attempt++;
     delay(1000);
 
@@ -92,24 +126,22 @@ bool connection(){
 
   WiFi.config(ip, subnet, gateway);
 
-  Serial.printf("\nESP8266 conectado na rede %s", ssid);
+  Serial.printf("\n \nESP8266 conectado na rede %s", ssid);
 
-  delay(1500);
+  delay(2000);
 
-  Serial.println("");
-  Serial.println("Conectando no servidor SQL");
+  Serial.print("\nConectando no servidor SQL \n");
 
   if(connectSQL()){
 
-    Serial.println("Conexao SQL OK!!!");
-    digitalWrite(led, LOW);
+    Serial.print("\nConectado ao servidor SQL \n");
     return true;
 
   }
 
   else{
 
-    Serial.println("Falha na conexao SQL");
+    Serial.print("\n Falha na conexao com o servidor SQL \n");
 
     return connectSQL();
 
@@ -119,19 +151,18 @@ bool connection(){
 
 bool connectSQL(){
 
-  int attemptSQL = 1;
+  int attempt = 1;
 
   while(!conn.connect(server_addr, port, user, pass)){
     
-    attemptSQL++;
+    attempt++;
     delay(1500);
 
-    if (attemptSQL >= 11){
+    if (attempt >= 11){
 
        return false;
 
     }
-
 
   }
 

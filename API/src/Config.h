@@ -11,9 +11,7 @@ char pass[] = "";
 char INSERT_SQL[] = "INSERT INTO dbesp8266.dht11 (humi, temp, day_register, hour_register) VALUES (%s, %s, CURDATE(), CURTIME())";
 char query[255];
 
-byte led = 2;
-
-#define DHTPIN D4     
+#define DHTPIN D4
 
 #define DHTTYPE DHT11
 

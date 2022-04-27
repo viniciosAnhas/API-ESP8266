@@ -14,18 +14,12 @@
 void setup(){
 
   Serial.begin(9600);
-  pinMode(led, OUTPUT);
 
   delay(1000);
   
-  digitalWrite(led, HIGH);
-  Serial.println("");
-
   WiFi.mode(WIFI_STA);
 
   statusConnection();
-
-
 
   delay(1000);
 
@@ -39,15 +33,7 @@ void loop(){
 
     timeInsertSQL = millis();
 
-    MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
-
-    dtostrf(getHumidity(), 1, 1, hum);
-    dtostrf(getTemperature(), 1, 1, temp);
-
-    sprintf(query, INSERT_SQL, hum, temp);
-
-    cur_mem->execute(query);
-    delete cur_mem;
+    insertData();
 
   }
 
