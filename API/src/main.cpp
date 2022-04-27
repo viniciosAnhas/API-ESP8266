@@ -27,14 +27,6 @@ void setup(){
 
 void loop(){
 
-  server.handleClient();
-
-  if((millis() - timeInsertSQL) >= 300000){
-
-    timeInsertSQL = millis();
-
-    insertData();
-
-  }
+  starService();
 
 }

@@ -1,5 +1,6 @@
 bool connectionWifi();
 bool connectSQL();
+void starService();
 void statusConnection();
 void getSensor();
 void restServerRouting();

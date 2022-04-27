@@ -79,6 +79,20 @@ void statusConnection(){
 
 }
 
+void starService(){
+
+  server.handleClient();
+
+  if((millis() - timeInsertSQL) >= insertInterval){
+
+    timeInsertSQL = millis();
+
+    insertData();
+
+  }
+
+}
+
 void insertData(){
 
     if (conn.connected()){
