@@ -17,6 +17,8 @@ char query[255];
 
 #define port 3306
 
+#define name "lolin"
+
 DHT dht(DHTPIN, DHTTYPE);
 
 String json;

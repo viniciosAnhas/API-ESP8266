@@ -64,14 +64,31 @@ void statusConnection(){
     server.enableCORS(true); 
     restServerRouting();
     server.onNotFound(handleNotFound);
+
+    if(!MDNS.begin(name)){
+
+      Serial.println("Erro no mDNS!");
+      while(true){
+
+        delay(1000);
+
+      }
+
+    }
+
+    Serial.println("mDNS configurado");
+
     server.begin();
+
+    MDNS.addService("http", "tcp", 80);
+
     Serial.println("Servico iniciado!");
 
   }
 
   else{
 
-    Serial.print("\n Falha ao se conectar a rede \n");
+    Serial.print("\nFalha ao se conectar a rede \n");
     delay(3000);
     return statusConnection();
 
@@ -80,6 +97,8 @@ void statusConnection(){
 }
 
 void starService(){
+
+  MDNS.update();
 
   server.handleClient();
 
