@@ -84,14 +84,13 @@ VALUES
 31
 33  /***    Configuração DHT11     ****/
 33
-34  
-35  #define DHTPIN D4       //Pino do DHT11 conectado no ESP8266
-36
-37  #define DHTTYPE DHT11   //Definimos que o sensor utilizado é o DHT11
-38
-39  /**********************************/
-40
-41  unsigned long insertInterval = 300000;  //Intervalo que o insert sera executado
+34  #define DHTPIN D4       //Pino do DHT11 conectado no ESP8266
+35
+36  #define DHTTYPE DHT11   //Definimos que o sensor utilizado é o DHT11
+37
+38  /**********************************/
+49
+40  unsigned long insertInterval = 300000;  //Intervalo que o insert sera executado
 ```
 
 + Em seguida iremos utilizar a barra de ferramentas do PlatformIO para enviar o código para a placa;
