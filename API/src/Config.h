@@ -5,7 +5,7 @@ IPAddress ip(x, x, x, x);
 IPAddress subnet(x, x, x, x);
 IPAddress gateway(x, x, x, x);
 
-IPAddress server_addr(x, x, x, x); 
+IPAddress serverSQL(x, x, x, x); 
 char user[] = "";
 char pass[] = "";
 char INSERT_SQL[] = "INSERT INTO dbesp8266.dht11 (humi, temp, day_register, hour_register) VALUES (%s, %s, CURDATE(), CURTIME())";
@@ -17,7 +17,7 @@ char query[255];
 
 #define port 3306
 
-#define name "lolin"
+char name[] = "lolin";
 
 DHT dht(DHTPIN, DHTTYPE);
 

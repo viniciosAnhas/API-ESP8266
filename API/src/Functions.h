@@ -1,3 +1,132 @@
+void statusConnection(){
+
+  if(connectionWifi()){
+      
+    dht.begin();
+    server.enableCORS(true); 
+    restServerRouting();
+    server.onNotFound(handleNotFound);
+
+    setMDNS(name);
+
+    Serial.println("mDNS configurado");
+
+    server.begin();
+
+    MDNS.addService("http", "tcp", 80);
+
+    Serial.println("Servico iniciado!");
+
+  }
+
+  else{
+
+    Serial.print("\nFalha ao se conectar a rede \n");
+    delay(3000);
+    return statusConnection();
+
+  }
+
+}
+
+bool connectionWifi(){
+
+  Serial.printf("\nConectando a %s", ssid);
+
+  int attempt = 1;
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED){
+
+    Serial.printf("\ntentativa: %d ª", attempt);
+    attempt++;
+    delay(1000);
+
+    if(attempt >= 11){
+
+      return false;
+
+    }
+
+  }
+
+  WiFi.config(ip, subnet, gateway);
+
+  Serial.printf("\n \nESP8266 conectado na rede %s \n", ssid);
+
+  delay(2000);
+
+  Serial.print("\nConectando no servidor SQL \n");
+
+  if(connectSQL()){
+
+    Serial.print("\nConectado ao servidor SQL \n");
+    return true;
+
+  }
+
+  else{
+
+    Serial.print("\nFalha na conexao com o servidor SQL \n");
+
+    return connectSQL();
+
+  }
+
+}
+
+bool connectSQL(){
+
+  int attempt = 1;
+
+  while(!conn.connect(serverSQL, port, user, pass)){
+    
+    attempt++;
+    delay(1500);
+
+    if (attempt >= 11){
+
+       return false;
+
+    }
+
+  }
+
+  return true;
+
+}
+
+void setMDNS(char name[]){
+
+  if(!MDNS.begin(name)){
+
+    Serial.println("Erro no mDNS!");
+    while(true){
+
+      delay(1000);
+
+    }
+
+  }
+
+}
+
+void starService(){
+
+  MDNS.update();
+
+  server.handleClient();
+
+  if((millis() - timeInsertSQL) >= insertInterval){
+
+    timeInsertSQL = millis();
+
+    insertData();
+
+  }
+
+}
+
 float getHumidity(){
 
   return dht.readHumidity();
@@ -56,62 +185,6 @@ void handleNotFound() {
 
 }
 
-void statusConnection(){
-
-  if(connectionWifi()){
-      
-    dht.begin();
-    server.enableCORS(true); 
-    restServerRouting();
-    server.onNotFound(handleNotFound);
-
-    if(!MDNS.begin(name)){
-
-      Serial.println("Erro no mDNS!");
-      while(true){
-
-        delay(1000);
-
-      }
-
-    }
-
-    Serial.println("mDNS configurado");
-
-    server.begin();
-
-    MDNS.addService("http", "tcp", 80);
-
-    Serial.println("Servico iniciado!");
-
-  }
-
-  else{
-
-    Serial.print("\nFalha ao se conectar a rede \n");
-    delay(3000);
-    return statusConnection();
-
-  }
-
-}
-
-void starService(){
-
-  MDNS.update();
-
-  server.handleClient();
-
-  if((millis() - timeInsertSQL) >= insertInterval){
-
-    timeInsertSQL = millis();
-
-    insertData();
-
-  }
-
-}
-
 void insertData(){
 
     if (conn.connected()){
@@ -133,72 +206,5 @@ void insertData(){
       ESP.restart();
 
     }
-
-}
-
-bool connectionWifi(){
-
-  Serial.printf("\nConectando a %s", ssid);
-
-  int attempt = 1;
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED){
-
-    Serial.printf("\ntentativa: %d ª", attempt);
-    attempt++;
-    delay(1000);
-
-    if(attempt >= 11){
-
-      return false;
-
-    }
-
-  }
-
-  WiFi.config(ip, subnet, gateway);
-
-  Serial.printf("\n \nESP8266 conectado na rede %s", ssid);
-
-  delay(2000);
-
-  Serial.print("\nConectando no servidor SQL \n");
-
-  if(connectSQL()){
-
-    Serial.print("\nConectado ao servidor SQL \n");
-    return true;
-
-  }
-
-  else{
-
-    Serial.print("\n Falha na conexao com o servidor SQL \n");
-
-    return connectSQL();
-
-  }
-
-}
-
-bool connectSQL(){
-
-  int attempt = 1;
-
-  while(!conn.connect(server_addr, port, user, pass)){
-    
-    attempt++;
-    delay(1500);
-
-    if (attempt >= 11){
-
-       return false;
-
-    }
-
-  }
-
-  return true;
 
 }

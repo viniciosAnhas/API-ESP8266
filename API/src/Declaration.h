@@ -1,10 +1,11 @@
+void statusConnection();
 bool connectionWifi();
 bool connectSQL();
+void setMDNS(char name[]);
 void starService();
-void statusConnection();
+float getHumidity();
+float getTemperature();
 void getSensor();
 void restServerRouting();
 void handleNotFound();
 void insertData();
-float getHumidity();
-float getTemperature();
