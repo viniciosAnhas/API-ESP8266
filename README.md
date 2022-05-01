@@ -17,13 +17,13 @@ ___
 * [Utilizando em um cenario real](#Utilizando-em-um-cenario-rea)
 ___
 # Sobre
-<p> O objetivo desse projeto é criar uma API com o ESP8266, com o intuito de realizar o monitoramento de temperatura e umidade utilizando o sensor DHT11 e armazenar essas informações em um banco de dados mysql.</p>
+<p> O objetivo desse projeto é criar uma API com o ESP8266, com o intuito de realizar o monitoramento de temperatura e umidade utilizando o sensor DHT11 e armazenar essas informações em um banco de dados MySQL.</p>
 
 # Componentes
 + ESP8266;
 + DHT11;
 + Jumpers;
-+ Servidor mysql;
++ Servidor MySQL;
 
 # Esquemático
 
@@ -34,7 +34,7 @@ ___
 # Softwares
 + Visual Studio Code;
 + PlatformIO;
-+ MYSQL Workbench
++ MySQL Workbench;
 
 # Como utilizar
 
@@ -91,9 +91,7 @@ VALUES
 38
 39  /**********************************/
 40
-41  
-42  unsigned long insertInterval = 300000;  //Intervalo que o insert sera executado
-43
+41  unsigned long insertInterval = 300000;  //Intervalo que o insert sera executado
 ```
 
 + Em seguida iremos utilizar a barra de ferramentas do PlatformIO para enviar o código para a placa;
@@ -147,17 +145,12 @@ ___
     FROM dht11 
     LIMIT 5;
 
-    ⬇️                       ⬇️                              ⬇️
-
-        *________________________________________________*
-        |id|Umidade % |Temperatura C°|Data      |Horas   |
-        |1 |   76.0	  |     28.1	 |2022-04-24|13:06:18|
-        |2 |   75.0   |     27.9	 |2022-04-24|13:11:18|
-        |3 |   75.0   |     27.9	 |2022-04-24|13:16:18|
-        |4 |   75.0   |     27.8	 |2022-04-24|13:21:19|
-        |5 |   75.0   |     27.8	 |2022-04-24|13:26:18|
-        *________________________________________________*
-
+	id	Umidade %	Temperatura C°	Data	Horas
+	1	76.0	28.1	2022-04-24	13:06:18
+	2	75.0	27.9	2022-04-24	13:11:18
+	3	75.0	27.9	2022-04-24	13:16:18
+	4	75.0	27.8	2022-04-24	13:21:19
+	5	75.0	27.8	2022-04-24	13:26:18
 ```
 
 ### 
