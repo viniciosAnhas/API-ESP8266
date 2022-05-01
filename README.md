@@ -1,6 +1,6 @@
 # API-ESP8266
 
-### Nesse arquivo teremos o passo a passo de como montar o circuito, realizar as configurações de conexão com a rede, envio do código para placa e realizar um teste com a API.
+### Nesse arquivo teremos o passo a passo de como montar o circuito, realizar as configurações de conexão com a rede, envio do código para placa e realizar um teste com a API, e configuração para cominucação com o banco mysql.
 ___
 
 # Sumário
@@ -10,17 +10,20 @@ ___
 * [Esquemático](#Esquemático)
 * [Softwares](#Softwares)
 * [Como utilizar](#Como-utilizar)
+    * [Arquivo config](#Arquivo-config)
     * [Barra de ferramentas PlatformIO](#Barra-de-ferramentas-PlatformIO)
 * [Postman](#Postman)
+* [MySQL](#MySQL)
 * [Utilizando em um cenario real](#Utilizando-em-um-cenario-rea)
 ___
 # Sobre
-<p> API para ESP8266, com objetivo de realizar o monitoramento de temperatura e umidade utilizando o sensor DHT11.</p>
+<p> O objetivo desse projeto é criar uma API com o ESP8266, com o intuito de realizar o monitoramento de temperatura e umidade utilizando o sensor DHT11 e armazenar essas informações em um banco de dados mysql.</p>
 
 # Componentes
 + ESP8266;
 + DHT11;
 + Jumpers;
++ Servidor mysql;
 
 # Esquemático
 
@@ -31,13 +34,68 @@ ___
 # Softwares
 + Visual Studio Code;
 + PlatformIO;
++ MYSQL Workbench
 
 # Como utilizar
 
 + Baixe o projeto em sua máquina;
-+ Abra o projeto com o vscode utilizando a extensão PlatformIO;
-+ Abra a pasta src, nessa pasta terá três arquivos, abra o arquivo Config.h;
-+ Coloque o ssid e a senha da sua rede Wi-Fi, e em seguida preencha as configurações de rede para que o ESP possua um endereço estático;
++ Abra o projeto com o vscode utilizando a extensão <b>PlatformIO</b>;
++ Abra a pasta <b>src</b>, nessa pasta terá três arquivos, abra o arquivo <b>Config.h</b>;
+
+## Arquivo-config
+
++ <p> Preencha os campos para realizar a configuração de rede para o ESP8266 </p>
+
+```c++
+
+1   /***    Configuração de rede    ****/
+2
+3   const char* ssid = "";          //Nome da sua rede Wi-Fi
+4   
+5   const char* password = "";      //Senha da rede Wi-Fi
+6   
+8   IPAddress ip(x, x, x, x);       //IP para o ESP8266
+9   
+10  IPAddress subnet(x, x, x, x);   //Mascara da rede
+11  
+12  IPAddress gateway(x, x, x, x);  //Gateway da rede
+13
+14  char name[] = "lolin";          //Nome para acesso do Esp8266
+15
+16  /**********************************/
+17
+18  /***    Configuração SQL    ****/
+19
+20  IPAddress serverSQL(x, x, x, x); //IP do servidor mySQL
+21  
+22  #define port 3306               //Porta do banco mySQL
+23
+24  char user[] = "";               //Usuario do banco
+25  
+26  char pass[] = "";               //Senha do usuario
+27  
+28  char INSERT_SQL[] = "
+INSERT INTO dbesp8266.dht11 (humi, temp, day_register, hour_register) 
+VALUES 
+(%s, %s, CURDATE(), CURTIME())
+";                         //Query para realizar o insert no banco
+29
+30  /**********************************/
+31
+33  /***    Configuração DHT11     ****/
+33
+34  
+35  #define DHTPIN D4       //Pino do DHT11 conectado no ESP8266
+36
+37  #define DHTTYPE DHT11   //Definimos que o sensor utilizado é o DHT11
+38
+39  /**********************************/
+40
+41  
+42  unsigned long insertInterval = 300000;  //Intervalo que o insert sera executado
+43
+```
+
 + Em seguida iremos utilizar a barra de ferramentas do PlatformIO para enviar o código para a placa;
 + Após o envio ser finalizado, abra o Serial monitor e verá se o ESP conectou com sucesso na rede;
 
@@ -66,7 +124,8 @@ ___
 
 # Postman
 
-<p>Após realizar os passos anteriores, iremos realizar um teste em nossa API, para verificar se o mesmo esta funcionando, abra o seu Postman e realize um teste, coloque o seguite endereço: ip/sensor
+<p>Após realizar os passos anteriores, iremos realizar um teste em nossa API, para verificar se o mesmo esta funcionando, abra o seu Postman e realize um teste, coloque o seguite endereço: 
+<b>ip/sensor</b> ou <b>lolin.local/sensor</b>
 
 OBS: Mesmo endereço configurado no codigo.
 
@@ -75,6 +134,33 @@ OBS: Mesmo endereço configurado no codigo.
 <img src="./img/postman.png" >
 
 ###
+___
+
+# MySQL
+
+<p>Nesse exemplo o insert no banco esta sendo realizado a cada 5 minutos, para alterar esse tempo basta colocra um valor em <b>milisegundos</b> na variavel <b>insertInterval</b> localizado no arquivo <b>Config.h</b>.
+
+```sql
+
+    SELECT id, humi as 'Umidade %', temp as 'Temperatura C°',
+    day_register as 'Data', hour_register as 'Horas'
+    FROM dht11 
+    LIMIT 5;
+
+    ⬇️                       ⬇️                              ⬇️
+
+        *________________________________________________*
+        |id|Umidade % |Temperatura C°|Data      |Horas   |
+        |1 |   76.0	  |     28.1	 |2022-04-24|13:06:18|
+        |2 |   75.0   |     27.9	 |2022-04-24|13:11:18|
+        |3 |   75.0   |     27.9	 |2022-04-24|13:16:18|
+        |4 |   75.0   |     27.8	 |2022-04-24|13:21:19|
+        |5 |   75.0   |     27.8	 |2022-04-24|13:26:18|
+        *________________________________________________*
+
+```
+
+### 
 ___
 
 # Utilizando em um cenario real
