@@ -135,7 +135,7 @@ ___
 
 # MySQL
 
-<p>Nesse exemplo o insert no banco esta sendo realizado a cada 5 minutos, para alterar esse tempo basta colocra um valor em <b>milisegundos</b> na variavel <b>insertInterval</b> localizado no arquivo <b>Config.h</b>.
+<p>Nesse exemplo o insert no banco esta sendo realizado a cada 5 minutos, para alterar esse tempo basta colocar um valor em <b>milisegundos</b> na variavel <b>insertInterval</b> localizado no arquivo <b>Config.h</b>.
 
 ```sql
 
