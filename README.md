@@ -157,7 +157,7 @@ ___
 
 # Utilizando em um cenario real
 
-<p>Você pode usar o projeto <a href="https://github.com/viniciosAnhas/Front-ESP8266" target="_blank"> Front-ESP8266</a> como exemplo para apresentação dos dados em tempo real.</p>
+<p>Você pode usar o projeto <a href="https://github.com/viniciosAnhas/Front-ESP8266" target="_blank"> Front-ESP8266</a> como exemplo para apresentação dos dados em tempo real, clique <a href="https://viniciosanhas.github.io/Front-ESP8266/" target="_blank"> aqui</a>, para ver o projeto publicado.</p>
 
 ###
 ___
